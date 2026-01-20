@@ -43,7 +43,7 @@ const VisionSection = () => {
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-gradient mb-2">
                   {stat.value}
                 </div>
-                <p className="text-sm text-secondary-foreground/60">{stat.label}</p>
+                <p className="text-sm text-secondary-foreground/6">{stat.label}</p>
               </div>
             ))}
           </div>
