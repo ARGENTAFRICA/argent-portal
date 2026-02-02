@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import argentlogo from '../assets/argent_africa.png';
 
-const Navbar = () => {
+const Navbar = ({ showLinks = true, showAuthButtons = true, showLogo = true, fullWidth = false }) => { 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
@@ -31,18 +32,21 @@ const Navbar = () => {
           : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className={`${fullWidth ? "w-full px-10" : "container mx-auto px-6"} flex items-center justify-between`}>
         {/* Logo */}
+        {showLogo && (
         <a href="#" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-gold flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform duration-300">
-            <span className="text-primary-foreground font-bold text-xl">A</span>
+          <div className="w-10 h-10 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform duration-300">
+              <img src={argentlogo} alt="Argent Africa Logo" className="w-10 h-10 object-contain" />
           </div>
           <span className="text-2xl font-bold text-foreground">
             argent<span className="text-primary">.africa</span>
           </span>
-        </a>
+          </a>
+        )}
 
         {/* Desktop Navigation */}
+        {showLinks && (
         <div className="hidden md:flex items-center gap-8">
           <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium">
             How it Works
@@ -53,31 +57,34 @@ const Navbar = () => {
           <a href="#vision" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium">
             Our Vision
           </a>
-        </div>
+          </div>
+        )}
 
         {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-4">
-          {user ? (
-            <>
-              <span className="text-sm text-muted-foreground">
-                {user.email}
-              </span>
-              <Button variant="ghost" size="sm" onClick={handleLogout}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Log out
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="ghost" size="sm" onClick={() => navigate('/login')}>
-                Log in
-              </Button>
-              <Button variant="default" size="sm" onClick={() => navigate('/signup')}>
-                Get Started
-              </Button>
-            </>
-          )}
-        </div>
+        {showAuthButtons && (
+          <div className="hidden md:flex items-center gap-4">
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground">
+                  {user.email}
+                </span>
+                <Button variant="ghost" size="sm" onClick={handleLogout}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Log out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" size="sm" onClick={() => navigate('/login')}>
+                  Log in
+                </Button>
+                <Button variant="default" size="sm" onClick={() => navigate('/signup')}>
+                  Get Started
+                </Button>
+              </>
+            )}
+          </div>
+        )}
 
         {/* Mobile Menu Button */}
         <button

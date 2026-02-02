@@ -44,7 +44,7 @@ const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-secondary-foreground/10 text-center">
           <p className="text-secondary-foreground/4 text-sm">
-            © 2024 Argent Africa. Built for Africa, by Africa 🌍
+            © 2026 Argent Africa. Built for Africa, by Africa 🌍
           </p>
         </div>
       </div>
