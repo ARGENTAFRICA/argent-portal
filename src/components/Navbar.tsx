@@ -29,7 +29,7 @@ const Navbar = ({ showLinks = true, showAuthButtons = true, showLogo = true, ful
       <div className={`${fullWidth ? "w-full px-10" : "container mx-auto px-6"} flex items-center justify-between`}>
         {/* Logo */}
         {showLogo && (
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform duration-300">
               <img src={argentlogo} alt="Argent Africa Logo" className="w-10 h-10 object-contain" />
           </div>
