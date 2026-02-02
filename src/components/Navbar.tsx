@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,12 +57,26 @@ const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" size="sm">
-            Log in
-          </Button>
-          <Button variant="default" size="sm">
-            Get Started
-          </Button>
+          {user ? (
+            <>
+              <span className="text-sm text-muted-foreground">
+                {user.email}
+              </span>
+              <Button variant="ghost" size="sm" onClick={handleLogout}>
+                <LogOut className="w-4 h-4 mr-2" />
+                Log out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/login')}>
+                Log in
+              </Button>
+              <Button variant="default" size="sm" onClick={() => navigate('/signup')}>
+                Get Started
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -83,12 +106,21 @@ const Navbar = () => {
               Our Vision
             </a>
             <div className="flex gap-4 pt-4">
-              <Button variant="ghost" className="flex-1">
-                Log in
-              </Button>
-              <Button variant="default" className="flex-1">
-                Get Started
-              </Button>
+              {user ? (
+                <Button variant="ghost" className="flex-1" onClick={handleLogout}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Log out
+                </Button>
+              ) : (
+                <>
+                  <Button variant="ghost" className="flex-1" onClick={() => navigate('/login')}>
+                    Log in
+                  </Button>
+                  <Button variant="default" className="flex-1" onClick={() => navigate('/signup')}>
+                    Get Started
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
